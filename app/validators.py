@@ -21,7 +21,7 @@ def validate_name(name: str) -> FieldError | None:
     if not NAME_PATTERN.match(name.strip()):
         return FieldError(
             field="full_name",
-            message="Must be a valid North American name with at least first and last name. "
+            message="Must be a valid North American name with at least a first and last name. "
                     "Only letters, hyphens, and apostrophes are allowed."
         )
     return None
