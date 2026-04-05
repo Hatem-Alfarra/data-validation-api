@@ -1,7 +1,7 @@
 import multiprocessing
 
 # Network
-bind = "0.0.0.0:8000"                                                     # Address and port Gunicorn listens on
+bind = "127.0.0.1:8000"                                                     # Address and port Gunicorn listens on
 
 # Workers
 workers = multiprocessing.cpu_count() * 2 + 1                               # Standard formula: 2 * CPU cores + 1
