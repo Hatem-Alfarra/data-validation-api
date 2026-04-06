@@ -14,7 +14,7 @@ class FieldError(BaseModel):
 
 class SuccessResponse(BaseModel):
     status: str = "valid"
-    
+
 
 class ErrorResponse(BaseModel):
     status: str = "invalid"

@@ -13,7 +13,8 @@ CSV_FILE = Path("scripts/mock_data.csv")
 RESULTS_DIR = Path("results")
 FAILURES_FILE = RESULTS_DIR / "failures.csv"
 
-
+# Maximum concurrent requests. Increase for higher throughput on capable
+# servers, decrease if requests are being dropped or server is overwhelmed.
 MAX_CONCURRENT_REQUESTS = 50
 
 
@@ -21,11 +22,12 @@ MAX_CONCURRENT_REQUESTS = 50
 
 async def send_request(
     client: httpx.AsyncClient,
-    semaphore: asyncio.Semaphore,                                   
+    semaphore: asyncio.Semaphore,
     row_number: int,
     data: dict,
 ) -> dict:
-    # Using a semaphore to limit the number of concurrent requests and avoid overwhelming the API or the network.
+    # Using a semaphore to limit the number of concurrent requests and
+    # avoid overwhelming the API or the network.
     async with semaphore:
         try:
             response = await client.post(API_URL, json=data)
@@ -107,15 +109,14 @@ async def main() -> None:
 
     start = time.perf_counter()
     
-    # Using an asynchronous HTTP client to send multiple requests concurrently, significantly reducing
-    # total processing time compared to sequential requests.
+    # Single shared client reused across all requests. Enables connection
+    # pooling eliminating repeated TCP handshake overhead.
     async with httpx.AsyncClient(timeout=30.0) as client:
         tasks = [
             send_request(client, semaphore, i + 1, row)
             for i, row in enumerate(records)
         ]
-        # asyncio.gather is used to run all the tasks concurrently and wait for their completion, allowing
-        # us to efficiently handle a large number of requests without blocking.
+        # Running all tasks concurrently rather than sequentially
         results = await asyncio.gather(*tasks)
 
     elapsed = time.perf_counter() - start

@@ -9,9 +9,9 @@ app = FastAPI()
 @app.post("/validate", response_model=SuccessResponse | ErrorResponse)
 def validate(request: ContactRequest) -> SuccessResponse | ErrorResponse:
     errors = validate_contact(
-        full_name = request.full_name,
-        email = request.email,
-        phone_number = request.phone_number,
+        full_name=request.full_name,
+        email=request.email,
+        phone_number=request.phone_number,
     )
 
     if errors:

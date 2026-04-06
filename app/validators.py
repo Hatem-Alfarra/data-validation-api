@@ -21,8 +21,10 @@ def validate_name(name: str) -> FieldError | None:
     if not NAME_PATTERN.match(name.strip()):
         return FieldError(
             field="full_name",
-            message="Must be a valid North American name with at least a first and last name. "
-                    "Only letters, hyphens, and apostrophes are allowed."
+            message=(
+                "Must be a valid North American name with at least a first and "
+                "last name. Only letters, hyphens, and apostrophes are allowed."
+            )
         )
     return None
 
@@ -42,8 +44,10 @@ def validate_phone(phone: str) -> FieldError | None:
     if not PHONE_PATTERN.match(phone.strip()):
         return FieldError(
             field="phone_number",
-            message="Must be a valid North American phone number format "
-                    "(e.g. +1-234-567-8900, (234) 567-8900, or 234-567-8900)."
+            message=(
+                "Must be a valid North American phone number format "
+                "(e.g. +1-234-567-8900, (234) 567-8900, or 234-567-8900)."
+            )
         )
     return None
 
