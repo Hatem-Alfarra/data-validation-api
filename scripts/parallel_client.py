@@ -108,7 +108,7 @@ async def main() -> None:
     semaphore = asyncio.Semaphore(MAX_CONCURRENT_REQUESTS)
 
     start = time.perf_counter()
-    
+
     # Single shared client reused across all requests. Enables connection
     # pooling eliminating repeated TCP handshake overhead.
     async with httpx.AsyncClient(timeout=30.0) as client:

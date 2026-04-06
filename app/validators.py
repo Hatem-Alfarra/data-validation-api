@@ -1,5 +1,8 @@
 import re
-from email_validator import validate_email as _validate_email, EmailNotValidError
+from email_validator import (
+    validate_email as _validate_email,
+    EmailNotValidError,
+)
 from app.models import FieldError
 
 
@@ -22,8 +25,9 @@ def validate_name(name: str) -> FieldError | None:
         return FieldError(
             field="full_name",
             message=(
-                "Must be a valid North American name with at least a first and "
-                "last name. Only letters, hyphens, and apostrophes are allowed."
+                "Must be a valid North American name with at least a first "
+                "and last name. Only letters, hyphens, and apostrophes are "
+                "allowed."
             )
         )
     return None
@@ -52,7 +56,12 @@ def validate_phone(phone: str) -> FieldError | None:
     return None
 
 
-def validate_contact(full_name: str, email: str, phone_number: str) -> list[FieldError]:
+def validate_contact(
+        full_name: str,
+        email: str,
+        phone_number: str
+) -> list[FieldError]:
+
     errors = []
 
     name_error = validate_name(full_name)

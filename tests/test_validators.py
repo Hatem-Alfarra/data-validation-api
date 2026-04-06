@@ -1,5 +1,10 @@
 import pytest
-from app.validators import validate_name, validate_email, validate_phone, validate_contact
+from app.validators import (
+    validate_name,
+    validate_email,
+    validate_phone,
+    validate_contact,
+)
 
 
 # ---------------------------------------------------------------------------
